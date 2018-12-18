@@ -7,24 +7,44 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { Geolocation } from '@ionic-native/geolocation';
+import { IonicStorageModule } from '@ionic/storage';
+import { RouteDetailsPage } from '../pages/route-details/route-details';
+import { SearchPage } from '../pages/search/search';
+import { RouteListPage } from '../pages/route-list/route-list';
+import { ScheduleTripPage, ModalContentPage } from '../pages/schedule-trip/schedule-trip';
+
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    SearchPage,
+    RouteListPage,
+    RouteDetailsPage,
+    ScheduleTripPage,
+    ModalContentPage
+
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    SearchPage,
+    RouteListPage,
+    RouteDetailsPage,
+    ScheduleTripPage,
+    ModalContentPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Geolocation
   ]
 })
 export class AppModule {}
