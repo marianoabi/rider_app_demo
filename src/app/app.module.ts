@@ -12,7 +12,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { RouteDetailsPage } from '../pages/route-details/route-details';
 import { SearchPage } from '../pages/search/search';
 import { RouteListPage } from '../pages/route-list/route-list';
-import { ScheduleTripPage, ModalContentPage } from '../pages/schedule-trip/schedule-trip';
+import { ScheduleTripPage } from '../pages/schedule-trip/schedule-trip';
+import { ReservationPage } from '../pages/reservation/reservation';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { ScheduleTripPage, ModalContentPage } from '../pages/schedule-trip/sched
     RouteListPage,
     RouteDetailsPage,
     ScheduleTripPage,
-    ModalContentPage
+    ReservationPage
 
   ],
   imports: [
@@ -38,7 +39,7 @@ import { ScheduleTripPage, ModalContentPage } from '../pages/schedule-trip/sched
     RouteListPage,
     RouteDetailsPage,
     ScheduleTripPage,
-    ModalContentPage
+    ReservationPage
   ],
   providers: [
     StatusBar,

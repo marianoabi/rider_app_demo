@@ -22,92 +22,80 @@ import { ScheduleTripPage } from '../schedule-trip/schedule-trip';
 export class RouteDetailsPage {
   @ViewChild('map')mapElement: ElementRef;
   map: any;
-
-  start = '14.5768, 121.0332';
-  end = '14.5746, 121.0423';
+  destination: string;
+  route: string;
+  // pickup = '14.6245, 121.0493';
+  pickup = [
+    {
+      location : 'Sta. Rosa',
+      coordinates : '15.4251, 120.9384'
+    },
+    {
+      location : 'Isabela',
+      coordinates : '16.9754, 121.8107'
+    },
+    {
+      location : 'Olongapo City',
+      coordinates : '14.8386, 120.2842'
+    }
+  ]; 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private plt: Platform, private geolocation: Geolocation) {
+    this.destination = navParams.get('destination');
+    this.route = navParams.get('route');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RouteDetailsPage');
-    this.plt.ready().then(() => {
+      this.calcRoute(this.pickup);
+  }
 
-      var directionsService = new google.maps.DirectionsService();
-      var directionsDisplay = new google.maps.DirectionsRenderer({
-        preserveViewport: true,
-        // polylineOptions: polylineOptionsActual,
-        suppressMarkers: true,
+  calcRoute(pickups) {
+    var i = 0;
+    var directionsService = new google.maps.DirectionsService();
+
+    let mapOptions = {
+      zoom: 8,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: false
+    }
+
+    let map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+    this.geolocation.getCurrentPosition().then(pos => {
+      let splitted = this.destination.split(',',2);
+      console.log(splitted);
+      // let latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+      let latLng = new google.maps.LatLng(splitted[0], splitted[1]);
+      map.setCenter(latLng);
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
     
-      });
-
-      let mapOptions = {
-        zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false
-      }
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
-      this.geolocation.getCurrentPosition().then(pos => {
-        let latLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        this.map.setCenter(latLng);
-        this.map.setZoom(16);
-      }).catch((error) => {
-        console.log('Error getting location', error);
-      });
-      directionsDisplay.setMap(this.map);
-      this.calcRoute(directionsService, directionsDisplay);
-
-      var lineSymbol = {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 8,
-        strokeColor: '#393'
+    for(i = 0; i < pickups.length; i++){
+      // console.log(pickups[this.i].coordinates);
+      var request = {
+        origin: pickups[i].coordinates,
+        destination: this.destination,
+        travelMode: 'DRIVING'
       };
 
-      // Create the polyline and add the symbol to it via the 'icons' property.
-      var line = new google.maps.Polyline({
-        path: [{lat: 14.5768, lng: 121.0332}, {lat: 14.5746, lng: 121.0423}],
-        icons: [{
-          icon: lineSymbol,
-          offset: '100%'
-        }],
-        map: this.map
+      directionsService.route(request, function(result, status){
+        if (status == 'OK') {
+          let directionsDisplay = new google.maps.DirectionsRenderer({ preserveViewport: true, suppressMarkers: false });
+          directionsDisplay.setMap(map);
+          directionsDisplay.setDirections(result);
+        }
       });
-
-      // this.animateCircle(line);
-
-    });
+    }
   }
 
-  calcRoute(dirServ, dirDis) {
-    var request = {
-      origin: this.start,
-      destination: this.end,
-      travelMode: 'DRIVING'
-    };
-    console.log(request);
-    dirServ.route(request, function(result, status) {
-      if (status == 'OK') {
-        dirDis.setDirections(result);
-        console.log('Success!!!');
-      }
+  goToScheduleTripPage(pickup_location) {
+    this.navCtrl.push(ScheduleTripPage, {
+      destination: this.destination,
+      route: this.route,
+      pickup: pickup_location
     });
-  }
-
-  // animateCircle(line) {
-  //   var count = 0;
-  //   window.setInterval(function() {
-  //     count = (count + 1) % 200;
-
-  //     var icons = line.get('icons');
-  //     icons[0].offset = (count / 2) + '%';
-  //     line.set('icons', icons);
-  //   }, 400);
-  // }
-
-  goToScheduleTripPage() {
-    this.navCtrl.push(ScheduleTripPage);
   }
 }

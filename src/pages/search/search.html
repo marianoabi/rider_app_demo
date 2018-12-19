@@ -14,13 +14,18 @@
 
 
 <ion-content padding>
-    <ion-list>
-      <ion-item>
-        <ion-label floating>Enter Destination</ion-label>
-        <ion-input type="text"></ion-input>
+    <ion-item>
+        <ion-label>Destination</ion-label>
+        <ion-select [(ngModel)]="destination" submitText="Okay" cancelText="Cancel">
+          <ion-option value="15.4770, 120.5945">SM Tarlac</ion-option>
+          <ion-option value="15.4251, 120.9384">Sta. Rosa</ion-option>
+          <ion-option value="15.4251, 120.9384">SM Cabanatuan</ion-option>
+          <ion-option value="15.2912, 121.0106">Gapan</ion-option>
+          <ion-option value="14.9672, 120.8843">Baliuag, Bulacan</ion-option>
+          <ion-option value="14.6245, 121.0493">Baliwag Terminal, Cubao</ion-option>
+        </ion-select>
       </ion-item>
-    </ion-list>
     <div padding>
-      <button ion-button (click)="searchDestination()">Search</button>
+      <button ion-button (click)="searchDestination()">View Routes</button>
     </div>
   </ion-content>

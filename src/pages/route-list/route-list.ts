@@ -15,15 +15,20 @@ import { RouteDetailsPage } from '../route-details/route-details';
   templateUrl: 'route-list.html',
 })
 export class RouteListPage {
+  destination: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.destination = navParams.get('destination');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RouteListPage');
+    console.log('destination is', this.destination);
   }
 
-  onRouteClick() {
-    this.navCtrl.push(RouteDetailsPage);
+  onRouteClick(route) {
+    this.navCtrl.push(RouteDetailsPage, {
+      destination: this.destination,
+      route: route
+    });
   }
 }

@@ -1,0 +1,71 @@
+<!--
+  Generated template for the ReservationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Reservation</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- <ion-item>
+    <ion-label>Origin: SM Cabanatuan</ion-label>
+    <ion-label>Destination: Baliwag Transit Cubao</ion-label>
+    <ion-label>Time: 6:00 AM</ion-label> -->
+  <!-- </ion-item> -->
+  <!-- <ion-label>Available Slot:</ion-label>
+  <ion-label>For PWD: 6</ion-label>
+  <ion-label>For non-PWD: 14</ion-label>
+  <button ion-button>RESERVE NOW</button> -->
+
+  <ion-list>
+      <ion-item no-lines>
+        <ion-avatar item-start>
+          <img id='reserve-bus-icon' src='../../assets/imgs/bus.png'>
+        </ion-avatar>
+        <h1>BUS 1</h1>
+        <h4>Available seat: 6</h4>
+        <!-- <h4>PWD: 6</h4><h4>Non-PWD: 10</h4> -->
+      </ion-item>
+    <ion-item>
+      <ion-label stacked color='primary'>YOUR ORIGIN</ion-label>
+      <ion-label>SM Cabanatuan</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked color='primary'>YOUR DESTINATION</ion-label>
+      <ion-label>Baliwag Transit, Cubao</ion-label>
+      </ion-item>
+    <ion-item>
+      <ion-label stacked color='primary'>SCHEDULE</ion-label>
+      <ion-label>Today, 9:00AM</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+      <!-- <ion-list-header>RESERVE SEAT</ion-list-header> -->
+      <ion-item>
+        <ion-label>PWD</ion-label>
+        <ion-select interface="popover">
+          <ion-option value="0">0</ion-option>
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label>Non-PWD</ion-label>
+          <ion-select interface="popover">
+            <ion-option value="0">0</ion-option>
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+          </ion-select>
+        </ion-item>
+  </ion-list>
+  <button ion-button (click)='onReserveNowButton()'>RESERVE NOW</button>
+</ion-content>

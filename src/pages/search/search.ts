@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { RouteListPage } from '../route-list/route-list';
 
 /**
@@ -15,15 +15,31 @@ import { RouteListPage } from '../route-list/route-list';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  destination: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
+    console.log('viewDidLoad searchPage');
   }
 
   searchDestination() {
-    this.navCtrl.push(RouteListPage);
+    if (typeof(this.destination) === 'undefined') {
+      console.log('hahahha', this.destination);
+      this.showAlert();
+    } else {
+      this.navCtrl.push(RouteListPage, {
+        destination: this.destination
+      });
+    }
+  }
+
+  showAlert() {
+    const alert = this.alertCtrl.create({
+      title: 'No selection',
+      subTitle: 'Please select your destination first.',
+      buttons: ['Okay']
+    });
+    alert.present();
   }
 }
